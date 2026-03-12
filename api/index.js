@@ -8,9 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 // import routes
-const customers = require("../routes/customers");
-const products = require("../routes/products");
-const orders = require("../routes/orders");
+const customers = require("./customers");
+const products = require("./products");
+const orders = require("./orders");
 
 // use routes
 app.use("/customers", customers);
