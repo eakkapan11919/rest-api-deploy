@@ -1,14 +1,26 @@
-const express = require("express");
-const router = express.Router();
-const db = require("../db");
+let customers = [
+  { id: 1, name: "John", email: "john@email.com" },
+  { id: 2, name: "Anna", email: "anna@email.com" }
+];
 
-router.get("/", async (req, res) => {
-  try {
-    const [rows] = await db.execute("SELECT * FROM customers");
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+export default function handler(req, res) {
+
+  if (req.method === "GET") {
+    return res.status(200).json(customers);
   }
-});
 
-module.exports = router;
+  if (req.method === "POST") {
+    const { name, email } = req.body;
+
+    const newCustomer = {
+      id: customers.length + 1,
+      name,
+      email
+    };
+
+    customers.push(newCustomer);
+
+    return res.status(201).json(newCustomer);
+  }
+
+}
